@@ -18,7 +18,7 @@ function LiveStockPage() {
     } finally {
       setLoading(false);
     }
-  }, [currentUser]);
+  }, []);
 
   useEffect(() => {
     fetchInventory();
