@@ -1,0 +1,48 @@
+{
+  "nav": {
+    "dashboard": "Dashboard",
+    "liveStock": "Live Stock",
+    "purchaseEntry": "Purchase Entry",
+    "usageEntry": "Usage Entry",
+    "purchaseHistory": "Purchase History",
+    "usageHistory": "Usage History",
+    "manageUsers": "Manage Users",
+    "auditLog": "Audit Log",
+    "logout": "Logout"
+  },
+  "login": {
+    "title": "Login",
+    "emailLabel": "Email Address",
+    "passwordLabel": "Password",
+    "button": "Login",
+    "noAccountPrompt": "Don't have an account?",
+    "signUpLink": "Sign Up"
+  },
+  "signup": {
+    "title": "Sign Up",
+    "nameLabel": "Name",
+    "emailLabel": "Email Address",
+    "passwordLabel": "Password",
+    "confirmPasswordLabel": "Confirm Password",
+    "button": "Sign Up",
+    "haveAccountPrompt": "Already have an account?",
+    "loginLink": "Login"
+  },
+  "home": {
+    "title": "Welcome to the Vegetable Inventory System!",
+    "greeting": "Hello, {{name}}!",
+    "yourRole": "Your Role:",
+    "loadingDetails": "Hello, {{email}}! (Loading user details...)",
+    "loginPrompt": "Please log in to continue.",
+    "dashboardOptions": "Your Dashboard Options:",
+    "recordNewPurchase": "Record New Purchase",
+    "recordDailyUsage": "Record Daily Usage",
+    "viewSystemReports": "View System Reports",
+    "systemSettings": "System Settings",
+    "enterNewPurchase": "Enter New Purchase",
+    "viewPurchaseLog": "View Purchase Log",
+    "manageSuppliers": "Manage Suppliers",
+    "enterDailyUsage": "Enter Daily Usage",
+    "roleNotConfigured": "Your role (<0>{{role}}</0>) does not have specific dashboard options configured yet."
+  }
+}

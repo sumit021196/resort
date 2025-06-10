@@ -1,0 +1,90 @@
+Title: Vegetable Inventory Management System for Resort
+
+Objective:
+To create a software system that helps a resort owner monitor and manage the purchase, usage, and stock levels of vegetables, in order to prevent mismanagement or potential theft (ghapla) by staff. The software should ensure accountability, transparency, and real-time tracking of all stock-related activities.
+
+Problem Statement:
+The resort owner has observed that the vegetables purchased for the resort kitchen are finishing faster than expected. There is a suspicion of internal mismanagement or theft. Currently, no systematic tracking is being done, and entries are maintained manually or verbally, which leads to data loss, lack of accountability, and fraud.
+
+Goals:
+- Track purchase of vegetables from vendors.
+- Record daily usage by kitchen staff.
+- Maintain live stock levels.
+- Generate alerts if usage is suspiciously high.
+- Identify discrepancies via reports.
+- Assign roles to users with limited access.
+
+User Roles:
+1. **Admin (Owner/Manager)**
+   - Full control over all data and reports.
+   - Can add/edit users, suppliers.
+   - Can view analytics, discrepancies, and raw logs.
+
+2. **Purchase Manager**
+   - Enters daily purchase details (item, quantity, supplier, rate).
+   - Views past purchase logs.
+
+3. **Kitchen Staff**
+   - Enters daily usage of each vegetable.
+   - Can only view limited data (e.g., available stock).
+
+
+Modules:
+
+1. **Login & User Management**
+   - Role-based login system.
+   - Logs all activity with timestamps.
+
+2. **Purchase Entry**
+   - Form to enter new stock details (item, quantity, supplier, rate, invoice photo).
+   - Auto-update stock levels.
+   - Option to track perishable items by expiry date.
+
+3. **Usage Entry**
+   - Daily form for kitchen to enter usage per item.
+   - Option to add notes (e.g., used for buffet lunch, staff meal).
+   - Real-time deduction from stock.
+
+4. **Live Stock Tracker**
+   - View current stock of each vegetable.
+   - Daily opening and closing balance.
+
+5. **Analytics & Reports**
+   - Daily/weekly/monthly usage report.
+   - Graph of purchase vs usage vs closing stock.
+   - Highlight items with abnormal usage.
+
+6. **Alerts & Notifications**
+   - Trigger alerts if:
+     - Usage > predefined threshold.
+     - Closing stock becomes zero too early.
+   - Send notifications to admin.
+
+7. **Audit Log**
+   - Every entry/update/delete action logged with user info and timestamp.
+
+Technology Stack (Suggested):
+- Frontend: React.js (web) / Flutter (mobile app)
+- Backend: Node.js + Express / Django REST Framework
+- Database: Firebase Firestore
+- Hosting: netlify(frontend) 
+
+
+Deployment & Access:
+- Web-based dashboard accessible from laptop/mobile browser.
+- Optional mobile app for kitchen staff (simplified interface).
+- Admin panel with secured login.
+
+Future Expansion (Optional):
+- Extend to track all kitchen supplies (rice, oil, spices).
+- Integrate with POS or billing system.
+- Generate vendor payment reports and analytics.
+
+Key Benefits:
+- Prevents ghapla by enforcing accountability.
+- Real-time data improves decision making.
+- Transparent operations increase trust in staff.
+- Saves money by reducing wastage and theft.
+
+Language: The interface can be multilingual (Hindi/English toggle) for ease of use by local staff.
+

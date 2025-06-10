@@ -1,0 +1,105 @@
+.history-container {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 2rem auto;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.history-header {
+  text-align: center;
+  color: #333;
+  margin-bottom: 2rem;
+  font-size: 2.5rem;
+}
+
+.history-table-container {
+  overflow-x: auto;
+}
+
+.history-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 1rem;
+}
+
+.history-table th,
+.history-table td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.history-table thead th {
+  background-color: #4CAF50;
+  color: white;
+  font-weight: bold;
+}
+
+.history-table tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.history-table tbody tr:hover {
+  background-color: #ddd;
+}
+
+.form-error {
+  color: #D8000C;
+  background-color: #FFD2D2;
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.refresh-btn {
+  display: block;
+  margin: 0 auto 2rem;
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.refresh-btn:hover:not(:disabled) {
+  background-color: #0056b3;
+}
+
+.refresh-btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.action-tag {
+  padding: 0.2em 0.6em;
+  border-radius: 10px;
+  color: white;
+  font-size: 0.8em;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.action-create_purchase {
+  background-color: #28a745; /* Green */
+}
+
+.action-create_usage {
+  background-color: #dc3545; /* Red */
+}
+
+.action-update_user_role {
+  background-color: #ffc107; /* Yellow */
+  color: #333;
+}
+
+.log-details {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.9em;
+  word-break: break-all;
+}
+

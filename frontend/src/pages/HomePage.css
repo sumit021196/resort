@@ -1,0 +1,48 @@
+.home-container {
+    padding: 20px;
+    text-align: center;
+}
+
+.user-info {
+    margin-bottom: 30px;
+}
+
+.dashboard-options-container {
+    margin-top: 20px;
+    border: 1px solid #ddd;
+    padding: 25px;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    display: inline-block;
+    text-align: left;
+    min-width: 300px;
+}
+
+.dashboard-options-container h4 {
+    margin-top: 0;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.dashboard-options-container ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.dashboard-options-container li {
+  margin-bottom: 12px;
+}
+
+.dashboard-options-container a {
+  text-decoration: none;
+  color: #007bff;
+  font-size: 1.1rem;
+  transition: color 0.2s;
+}
+
+.dashboard-options-container a:hover {
+  text-decoration: underline;
+  color: #0056b3;
+}

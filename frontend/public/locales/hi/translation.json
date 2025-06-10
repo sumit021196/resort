@@ -1,0 +1,48 @@
+{
+  "nav": {
+    "dashboard": "डैशबोर्ड",
+    "liveStock": "लाइव स्टॉक",
+    "purchaseEntry": "खरीद एंट्री",
+    "usageEntry": "उपयोग एंट्री",
+    "purchaseHistory": "खरीद इतिहास",
+    "usageHistory": "उपयोग इतिहास",
+    "manageUsers": "उपयोगकर्ता प्रबंधित करें",
+    "auditLog": "ऑडिट लॉग",
+    "logout": "लॉग आउट"
+  },
+  "login": {
+    "title": "लॉग इन करें",
+    "emailLabel": "ईमेल पता",
+    "passwordLabel": "पासवर्ड",
+    "button": "लॉग इन करें",
+    "noAccountPrompt": "खाता नहीं है?",
+    "signUpLink": "साइन अप करें"
+  },
+  "signup": {
+    "title": "साइन अप करें",
+    "nameLabel": "नाम",
+    "emailLabel": "ईमेल पता",
+    "passwordLabel": "पासवर्ड",
+    "confirmPasswordLabel": "पासवर्ड की पुष्टि कीजिये",
+    "button": "साइन अप करें",
+    "haveAccountPrompt": "पहले से ही एक खाता है?",
+    "loginLink": "लॉग इन करें"
+  },
+  "home": {
+    "title": "सब्जी इन्वेंटरी सिस्टम में आपका स्वागत है!",
+    "greeting": "नमस्ते, {{name}}!",
+    "yourRole": "आपकी भूमिका:",
+    "loadingDetails": "नमस्ते, {{email}}! (उपयोगकर्ता विवरण लोड हो रहा है...)",
+    "loginPrompt": "कृपया जारी रखने के लिए लॉग इन करें।",
+    "dashboardOptions": "आपके डैशबोर्ड विकल्प:",
+    "recordNewPurchase": "नई खरीद रिकॉर्ड करें",
+    "recordDailyUsage": "दैनिक उपयोग रिकॉर्ड करें",
+    "viewSystemReports": "सिस्टम रिपोर्ट देखें",
+    "systemSettings": "सिस्टम सेटिंग्स",
+    "enterNewPurchase": "नई खरीद दर्ज करें",
+    "viewPurchaseLog": "खरीद लॉग देखें",
+    "manageSuppliers": "आपूर्तिकर्ताओं को प्रबंधित करें",
+    "enterDailyUsage": "दैनिक उपयोग दर्ज करें",
+    "roleNotConfigured": "आपकी भूमिका (<0>{{role}}</0>) के लिए अभी तक कोई विशिष्ट डैशबोर्ड विकल्प कॉन्फ़िगर नहीं किया गया है।"
+  }
+}
