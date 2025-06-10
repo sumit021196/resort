@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../firebase';
+import { AuthContext } from '../contexts/AuthContext';
 import './AuthForm.css';
 
 function LoginPage() {
@@ -10,17 +9,23 @@ function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const { login } = useContext(AuthContext);
 
   const handleLogin = async (e) => {
     e.preventDefault();
     setError(null);
+    setIsLoading(true);
+    
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+      await login(email, password);
       navigate('/'); // Navigate to dashboard or home page after login
     } catch (err) {
-      setError(err.message);
+      setError(err.response?.data?.message || 'Login failed. Please try again.');
       console.error("Error logging in: ", err);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -50,7 +55,13 @@ function LoginPage() {
             />
           </div>
           {error && <p className="error-message">{error}</p>}
-          <button type="submit" className="auth-button">{t('login.button')}</button>
+          <button 
+            type="submit" 
+            className="auth-button"
+            disabled={isLoading}
+          >
+            {isLoading ? t('login.loggingIn') : t('login.button')}
+          </button>
         </form>
         <p className="switch-auth">
           {t('login.noAccountPrompt')}{' '}

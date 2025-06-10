@@ -1,9 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { onAuthStateChanged, signOut } from 'firebase/auth';
-import { doc, getDoc } from 'firebase/firestore';
-import { auth, db } from '../firebase'; // Assuming firebase.js is in src
+import { login, logout, getCurrentUser, register } from '../services/authService';
 
-const AuthContext = createContext();
+export const AuthContext = createContext();
 
 export function useAuth() {
   return useContext(AuthContext);
@@ -11,48 +9,54 @@ export function useAuth() {
 
 export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState(null);
-  const [userData, setUserData] = useState(null); // To store user data from Firestore
+  const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+    // Check if user is already logged in
+    const user = getCurrentUser();
+    if (user) {
       setCurrentUser(user);
-      if (user) {
-        // Fetch user data from Firestore
-        const userDocRef = doc(db, 'users', user.uid);
-        try {
-          console.log(`[AuthContext] Attempting to fetch user document: users/${user.uid}`);
-          const userDocSnap = await getDoc(userDocRef);
-          if (userDocSnap.exists()) {
-            setUserData(userDocSnap.data());
-            console.log('[AuthContext] User data fetched successfully:', userDocSnap.data());
-          } else {
-            console.warn('[AuthContext] User data not found in Firestore for UID:', user.uid);
-            setUserData(null);
-          }
-        } catch (error) {
-          console.error('[AuthContext] Error fetching user document:', error);
-          console.error(`[AuthContext] Firebase error code: ${error.code}, message: ${error.message}`);
-          setUserData(null); // Ensure userData is cleared on error
-        }
-      } else {
-        setUserData(null);
-      }
-      setLoading(false);
-    });
-
-    return unsubscribe; // Cleanup subscription on unmount
+      setUserData(user);
+    }
+    setLoading(false);
   }, []);
 
-    const logout = () => {
-    return signOut(auth);
+  const handleLogin = async (email, password) => {
+    try {
+      const response = await login(email, password);
+      setCurrentUser(response.user);
+      setUserData(response.user);
+      return response;
+    } catch (error) {
+      console.error('Login failed:', error);
+      throw error;
+    }
+  };
+
+  const handleLogout = () => {
+    logout();
+    setCurrentUser(null);
+    setUserData(null);
+  };
+
+  const handleRegister = async (userData) => {
+    try {
+      const response = await register(userData);
+      return response;
+    } catch (error) {
+      console.error('Registration failed:', error);
+      throw error;
+    }
   };
 
   const value = {
     currentUser,
-    userData, // e.g., { uid, name, email, role, ... }
+    userData,
     loading,
-    logout
+    login: handleLogin,
+    logout: handleLogout,
+    register: handleRegister
   };
 
   return (

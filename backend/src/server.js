@@ -1,21 +1,58 @@
+// Load environment variables first
+require('dotenv').config();
+
 const express = require('express');
-console.log('[server.js] Requiring firebaseAdmin.js...');
-require('./firebaseAdmin'); // Initialize Firebase Admin SDK
-console.log('[server.js] firebaseAdmin.js required.');
-const authMiddleware = require('./authMiddleware');
+const morgan = require('morgan');
+const path = require('path');
+const fs = require('fs');
 const cors = require('cors');
+
+// Create logs directory if it doesn't exist
+const logDir = path.join(__dirname, '../logs');
+if (!fs.existsSync(logDir)) {
+  fs.mkdirSync(logDir);
+}
+
+// Create a write stream (in append mode)
+const accessLogStream = fs.createWriteStream(path.join(logDir, 'access.log'), { flags: 'a' });
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+
+// Setup logger
+app.use(morgan('combined', { stream: accessLogStream }));
+app.use(morgan('dev')); // Log to console as well
+
+console.log('[server.js] Requiring firebaseAdmin.js...');
+require('./firebaseAdmin'); // Initialize Firebase Admin SDK
+console.log('[server.js] firebaseAdmin.js required.');
+
+const authMiddleware = require('./authMiddleware');
 
 // Middleware to parse JSON bodies
 app.use(express.json());
 
 // Enable CORS
+const allowedOrigins = [
+  'http://localhost:3000', // Local development
+  'https://kitcheni.netlify.app' // Production frontend
+];
+
 const corsOptions = {
-  origin: 'http://localhost:3000', // Allow only your frontend origin
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    
+    if (allowedOrigins.indexOf(origin) === -1) {
+      const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
+      return callback(new Error(msg), false);
+    }
+    return callback(null, true);
+  },
+  credentials: true,
   optionsSuccessStatus: 200 // For legacy browser support
 };
+
 app.use(cors(corsOptions));
 
 // Public route
@@ -31,6 +68,10 @@ app.get('/api/protected-data', authMiddleware, (req, res) => {
     user: req.user // Send back the user info from the token
   });
 });
+
+// Authentication routes
+const authRoutes = require('./routes/auth');
+app.use('/api/auth', authRoutes);
 
 // User management routes
 const userRoutes = require('./routes/users');

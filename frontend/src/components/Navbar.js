@@ -6,21 +6,24 @@ import './Navbar.css';
 
 const Navbar = () => {
   const { t, i18n } = useTranslation();
-  const { currentUser, userData, logout } = useAuth(); // Use logout from context
+  const { currentUser, userData, logout } = useAuth();
   const navigate = useNavigate();
 
-  const handleLogout = async () => {
+  const handleLogout = () => {
     try {
-      await logout(); // Call the logout function from the context
+      logout(); // This will clear the token and user data
       navigate('/login');
     } catch (error) {
       console.error('Failed to log out:', error);
     }
   };
 
-  if (!currentUser || !userData) {
+  if (!currentUser) {
     return null; // Don't render navbar if user is not logged in
   }
+  
+  // Use userData from context or fallback to currentUser
+  const userRole = userData?.role || 'user';
 
   return (
     <nav className="navbar">
@@ -62,7 +65,7 @@ const Navbar = () => {
             <button onClick={() => i18n.changeLanguage('en')} disabled={i18n.language.startsWith('en')}>EN</button>
             <button onClick={() => i18n.changeLanguage('hi')} disabled={i18n.language.startsWith('hi')}>HI</button>
           </div>
-          <span className="user-role">Role: {userData.role}</span>
+          <span className="user-role">Role: {userRole}</span>
           <button onClick={handleLogout} className="nav-logout-btn">{t('nav.logout')}</button>
         </div>
       </div>

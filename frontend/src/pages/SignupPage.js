@@ -1,9 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { doc, setDoc } from 'firebase/firestore';
-import { auth, db } from '../firebase';
+import { AuthContext } from '../contexts/AuthContext';
 import './AuthForm.css';
 
 function SignupPage() {
@@ -12,29 +10,41 @@ function SignupPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const { register } = useContext(AuthContext);
 
   const handleSignup = async (e) => {
     e.preventDefault();
     setError(null);
+    setIsLoading(true);
+    
+    if (password.length < 6) {
+      setError('Password must be at least 6 characters long');
+      setIsLoading(false);
+      return;
+    }
+
     try {
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      const user = userCredential.user;
-
-      // Add user to Firestore 'users' collection
-      await setDoc(doc(db, 'users', user.uid), {
-        uid: user.uid,
-        name: name,
-        email: user.email,
-        role: 'kitchenStaff', // Default role, can be changed by admin later
-        createdAt: new Date(),
-        updatedAt: new Date(),
+      await register({
+        name,
+        email,
+        password,
+        role: 'kitchenStaff' // Default role
       });
-
-      navigate('/'); // Navigate to dashboard or home page after signup
+      
+      // Redirect to login page after successful registration
+      navigate('/login', { 
+        state: { 
+          message: 'Registration successful! Please log in.',
+          type: 'success'
+        } 
+      });
     } catch (err) {
-      setError(err.message);
+      setError(err.response?.data?.message || 'Registration failed. Please try again.');
       console.error("Error signing up: ", err);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -74,7 +84,13 @@ function SignupPage() {
             />
           </div>
           {error && <p className="error-message">{error}</p>}
-          <button type="submit" className="auth-button">{t('signup.button')}</button>
+          <button 
+            type="submit" 
+            className="auth-button"
+            disabled={isLoading}
+          >
+            {isLoading ? t('signup.creatingAccount') : t('signup.button')}
+          </button>
         </form>
         <p className="switch-auth">
           {t('signup.haveAccountPrompt')}{' '}
