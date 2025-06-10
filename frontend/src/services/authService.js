@@ -31,5 +31,25 @@ export const logout = () => {
 
 export const getCurrentUser = () => {
   const userStr = localStorage.getItem('user');
-  return userStr ? JSON.parse(userStr) : null;
+  if (!userStr) return null;
+  
+  try {
+    const user = JSON.parse(userStr);
+    // Make sure the user object has the expected properties
+    if (user && user.uid && user.email) {
+      return {
+        ...user,
+        // Add this to maintain backward compatibility with getIdToken()
+        getIdToken: async () => {
+          const token = localStorage.getItem('token');
+          if (!token) return null;
+          return token;
+        }
+      };
+    }
+    return null;
+  } catch (error) {
+    console.error('Error parsing user data:', error);
+    return null;
+  }
 };

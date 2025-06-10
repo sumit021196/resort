@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useAuth } from '../contexts/AuthContext';
+import api from '../config/api';
 import './LiveStockPage.css';
 
 function LiveStockPage() {
@@ -12,20 +13,8 @@ function LiveStockPage() {
     setLoading(true);
     setError(null);
     try {
-      const token = await currentUser.getIdToken();
-      const response = await fetch('http://localhost:5000/api/inventory', {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-        },
-      });
-
-      if (!response.ok) {
-        const result = await response.json();
-        throw new Error(result.message || 'Failed to fetch inventory.');
-      }
-
-      const data = await response.json();
-      setInventory(data);
+      const response = await api.get('/inventory');
+      setInventory(response.data);
     } catch (err) {
       setError(err.message);
     } finally {
